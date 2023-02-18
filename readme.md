@@ -4,10 +4,6 @@
 
 Helper functions for assembling CloudFormation templates in JavaScript.
 
-## Shortcuts
-
-Cloudfriend contains a library of JS classes that reduce the amount of "boilerplate" CloudFormation that you need to write to setup a common set of AWS Resources. See [the shortcuts readme for more information](./lib/shortcuts/readme.md), or [the shortcuts API documentation to look at shortcut-specific configuration](./lib/shortcuts/api.md).
-
 ## Intrinsic functions and conditions
 
 These are functions that you can use in place of various CloudFormation objects.
@@ -63,7 +59,6 @@ urlSuffix | [AWS::URLSuffix](https://docs.aws.amazon.com/AWSCloudFormation/lates
 method | description
 --- | ---
 build(file, opts) | Builds a template defined by a static JavaScript export, a synchronous or an asynchronous function.
-validate(file) | Uses the `cloudformation:ValidateTemplate` API call to perform rudimentary template validation
 merge(...template) | Merges templates together. Throws errors if logical names are reused. `Transform` macros from all template arguments are merged into a single array, in order of their appearance in the template arguments, and an error is thrown if any macro is repeated.
 
 ## CLI tools
@@ -82,18 +77,4 @@ Then, to build a template:
 ```
 # Prints the template as JSON to stdout
 $ build-template path/to/template.js
-```
-
-Or, to validate a template:
-
-```
-# Make sure that your shell is configured to make AWS requests
-$ validate-template path/to/template.js
-```
-
-You may also specify a region for validation:
-
-```
-# Make sure that your shell is configured to make AWS requests
-$ validate-template path/to/template.js us-east-1
 ```

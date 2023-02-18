@@ -1,5 +1,3 @@
-'use strict';
-
-module.exports = (callback) => {
-  setImmediate(callback, new Error('oopsies'));
+export default (callback) => {
+    setImmediate(callback, new Error('oopsies'));
 };

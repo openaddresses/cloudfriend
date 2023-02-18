@@ -1,74 +1,31 @@
-'use strict';
-
-const intrinsic = require('./lib/intrinsic');
-const conditions = require('./lib/conditions');
-const rules = require('./lib/rules');
-const pseudo = require('./lib/pseudo');
-const build = require('./lib/build');
-const validate = require('./lib/validate');
-const merge = require('./lib/merge');
-const shortcuts = require('./lib/shortcuts');
+import intrinsic from './lib/intrinsic.js';
+import conditions from './lib/conditions.js';
+import rules from './lib/rules.js';
+import pseudo from './lib/pseudo.js';
+import merge from './lib/merge.js';
 
 /**
  * The cloudfriend module
  *
  * @example
- * var cloudfriend = require('cloudfriend');
+ * import cloudfriend from 'cloudfriend';
  */
-const cloudfriend = module.exports = {
-  build,
-  validate,
-  merge,
-  shortcuts
-};
+const cloudfriend = { merge };
 
 Object.keys(intrinsic).forEach((key) => {
-  cloudfriend[key] = intrinsic[key];
+    cloudfriend[key] = intrinsic[key];
 });
 
 Object.keys(conditions).forEach((key) => {
-  cloudfriend[key] = conditions[key];
+    cloudfriend[key] = conditions[key];
 });
 
 Object.keys(rules).forEach((key) => {
-  cloudfriend[key] = rules[key];
+    cloudfriend[key] = rules[key];
 });
 
 Object.keys(pseudo).forEach((key) => {
-  cloudfriend[key] = pseudo[key];
+    cloudfriend[key] = pseudo[key];
 });
 
-cloudfriend.permissions = {
-  AWSTemplateFormatVersion: '2010-09-09',
-  Resources: {
-    User: {
-      Type: 'AWS::IAM::User',
-      Properties: {
-        Policies: [
-          {
-            PolicyName: 'validate-templates',
-            PolicyDocument: {
-              Statement: [
-                {
-                  Action: 'cloudformation:ValidateTemplate',
-                  Effect: 'Allow',
-                  Resource: '*'
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    AccessKey: {
-      Type: 'AWS::IAM::AccessKey',
-      Properties: {
-        UserName: cloudfriend.ref('User')
-      }
-    }
-  },
-  Outputs: {
-    AccessKeyId: { Value: cloudfriend.ref('AccessKey') },
-    SecretAccessKey: { Value: cloudfriend.getAtt('AccessKey', 'SecretAccessKey') }
-  }
-};
+export default cloudfriend;
