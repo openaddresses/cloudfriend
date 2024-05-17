@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.1.0
+
+- Add support for outputting Description
+
 ## v7.0.0
 
 - Remove CF.build as these are duplicative of functionality provided by cfn-config
