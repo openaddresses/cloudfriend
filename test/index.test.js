@@ -1,10 +1,5 @@
 import test from 'tape';
 import cloudfriend from '../index.js';
-import path from 'node:path';
-import fs from 'node:fs';
-
-const expectedTemplate = JSON.parse(fs.readFileSync(new URL('./fixtures/static.json', import.meta.url)));
-const fixtures = new URL('./fixtures', import.meta.url).pathname;
 
 test('intrinsic functions', (assert) => {
     assert.deepEqual(cloudfriend.base64('secret'), { 'Fn::Base64': 'secret' }, 'base64');
@@ -91,6 +86,7 @@ test('merge', (assert) => {
 
     assert.deepEqual(cloudfriend.merge(a, b, c), {
         AWSTemplateFormatVersion: '2010-09-09',
+        Description: 'No Description',
         Metadata: {
             Instances: { Description: 'Information about the instances' },
             Databases: { Description: 'Information about the databases' }
@@ -131,6 +127,7 @@ test('merge', (assert) => {
         ),
         {
             AWSTemplateFormatVersion: '2010-09-09',
+            Description: 'No Description',
             Metadata: {},
             Parameters: { InstanceCount: { Type: 'Number' } },
             Rules: {},
