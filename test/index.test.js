@@ -1,10 +1,5 @@
 import test from 'tape';
 import cloudfriend from '../index.js';
-import path from 'node:path';
-import fs from 'node:fs';
-
-const expectedTemplate = JSON.parse(fs.readFileSync(new URL('./fixtures/static.json', import.meta.url)));
-const fixtures = new URL('./fixtures', import.meta.url).pathname;
 
 test('intrinsic functions', (assert) => {
     assert.deepEqual(cloudfriend.base64('secret'), { 'Fn::Base64': 'secret' }, 'base64');
