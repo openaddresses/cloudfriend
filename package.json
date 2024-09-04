@@ -11,8 +11,7 @@
         "lint": "eslint index.js test lib bin",
         "test": "nyc tape test/*.test.js | tap-spec",
         "coverage": "nyc --reporter html tape test/*.test.js && opener coverage/index.html",
-        "build-ci-template": "bin/build-template.js cloudformation/ci.template.js > cloudformation/ci.template.json",
-        "doc": "jsdoc2md lib/shortcuts/*.js > lib/shortcuts/api.md"
+        "build-ci-template": "bin/build-template.js cloudformation/ci.template.js > cloudformation/ci.template.json"
     },
     "bin": {
         "build-template": "bin/build-template.js",
@@ -33,10 +32,9 @@
     },
     "homepage": "https://github.com/openaddresses/cloudfriend#readme",
     "devDependencies": {
-        "eslint": "^8.0.0",
-        "eslint-plugin-node": "^11.0.0",
-        "jsdoc-to-markdown": "^8.0.0",
-        "nyc": "^15.1.0",
+        "eslint": "^9.0.0",
+        "eslint-plugin-n": "^17.10.2",
+        "nyc": "^17.0.0",
         "opener": "^1.4.1",
         "tap-spec": "^5.0.0",
         "tape": "^5.0.0"

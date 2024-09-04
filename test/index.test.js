@@ -91,6 +91,7 @@ test('merge', (assert) => {
 
     assert.deepEqual(cloudfriend.merge(a, b, c), {
         AWSTemplateFormatVersion: '2010-09-09',
+        Description: 'No Description',
         Metadata: {
             Instances: { Description: 'Information about the instances' },
             Databases: { Description: 'Information about the databases' }
@@ -131,6 +132,7 @@ test('merge', (assert) => {
         ),
         {
             AWSTemplateFormatVersion: '2010-09-09',
+            Description: 'No Description',
             Metadata: {},
             Parameters: { InstanceCount: { Type: 'Number' } },
             Rules: {},
