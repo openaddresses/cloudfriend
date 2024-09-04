@@ -1,5 +1,11 @@
 # Changelog
 
+## v7.2.0
+
+- Update Deps
+- Add GH test runner
+- Fix lints in ESLint@9
+
 ## v7.1.0
 
 - Add support for outputting Description
