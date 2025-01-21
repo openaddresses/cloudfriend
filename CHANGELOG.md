@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.3.0
+
+- Pull in Upstream ForEach fn
+
 ## v7.2.0
 
 - Update Deps

@@ -11,6 +11,24 @@ test('intrinsic functions', (assert) => {
     assert.deepEqual(cloudfriend.join(['abra', 'cadabra']), { 'Fn::Join': ['', ['abra', 'cadabra']] }, 'join (no delimeter specified)');
     assert.deepEqual(cloudfriend.join('-', ['abra', 'cadabra']), { 'Fn::Join': ['-', ['abra', 'cadabra']] }, 'join (delimeter specified)');
     assert.deepEqual(cloudfriend.select(1, ['abra', 'cadabra']), { 'Fn::Select': ['1', ['abra', 'cadabra']] }, '');
+    assert.deepEqual(
+        cloudfriend.forEach('somethings', 'topic', ['abra', 'cadabra'], 'magic', {
+            Type: 'AWS::SNS::Topic',
+            Properties: { TopicName: cloudfriend.ref('topic') }
+        }),
+        {
+            'Fn::ForEach::somethings': [
+                'topic',
+                ['abra', 'cadabra'],
+                'magic${topic}',
+                {
+                    Type: 'AWS::SNS::Topic',
+                    Properties: { TopicName: { 'Ref': 'topic' } }
+                }
+            ]
+        },
+        'forEach'
+    );
     assert.deepEqual(cloudfriend.ref('something'), { Ref: 'something' }, 'ref');
     assert.deepEqual(cloudfriend.split(',', 'a,b,c,d'), { 'Fn::Split': [',', 'a,b,c,d'] }, 'split');
     assert.deepEqual(cloudfriend.split(',', cloudfriend.ref('Id')), { 'Fn::Split': [',', { Ref: 'Id' }] }, 'split');
