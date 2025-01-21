@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.4.0
+
+- Bump release
+
 ## v7.3.0
 
 - Pull in Upstream ForEach fn
