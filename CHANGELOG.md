@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.5.1
+
+- :bug: Fix lint errors
+
 ## v7.5.0
 
 - :rocket: Migrate to NodeJS `node:test` runner
