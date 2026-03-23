@@ -1,7 +1,8 @@
-import test from 'tape';
+import { test } from 'node:test';
+import assert from 'node:assert';
 import cloudfriend from '../index.js';
 
-test('intrinsic functions', (assert) => {
+test('intrinsic functions', () => {
     assert.deepEqual(cloudfriend.base64('secret'), { 'Fn::Base64': 'secret' }, 'base64');
     assert.deepEqual(cloudfriend.cidr('ipBlock', 1, 2), { 'Fn::Cidr': ['ipBlock', 1, 2] }, 'cidr');
     assert.deepEqual(cloudfriend.findInMap('mapping', 'key', 'value'), { 'Fn::FindInMap': ['mapping', 'key', 'value'] }, 'lookup');
@@ -40,30 +41,27 @@ test('intrinsic functions', (assert) => {
     assert.deepEqual(cloudfriend.arn('s3', 'my-bucket/*'), { 'Fn::Sub': ['arn:${AWS::Partition}:${service}:::${suffix}', { service: 's3', suffix: 'my-bucket/*' }] }, 's3 arn');
     assert.deepEqual(cloudfriend.arn('cloudformation', 'stack/my-stack/*'), { 'Fn::Sub': ['arn:${AWS::Partition}:${service}:${AWS::Region}:${AWS::AccountId}:${suffix}', { service: 'cloudformation', suffix: 'stack/my-stack/*' }] }, 'non-s3 arn');
     assert.deepEqual(cloudfriend.transform('name', { 'a': 'b', 'c': 'd' }), { 'Fn::Transform': { Name: 'name', Parameters: { 'a': 'b', 'c': 'd' } } }, 'cidr');
-    assert.end();
 });
 
-test('conditions', (assert) => {
+test('conditions', () => {
     assert.deepEqual(cloudfriend.and(['a', 'b']), { 'Fn::And': ['a', 'b'] }, 'and');
     assert.deepEqual(cloudfriend.equals('a', 'b'), { 'Fn::Equals': ['a', 'b'] }, 'equal');
     assert.deepEqual(cloudfriend.if('condition', 'a', 'b'), { 'Fn::If': ['condition', 'a', 'b'] }, 'if');
     assert.deepEqual(cloudfriend.not('condition'), { 'Fn::Not': ['condition'] }, 'not');
     assert.deepEqual(cloudfriend.or(['a', 'b']), { 'Fn::Or': ['a', 'b'] }, 'or');
     assert.deepEqual(cloudfriend.notEquals('a', 'b'), { 'Fn::Not': [{ 'Fn::Equals': ['a', 'b'] }] }, 'notEqual');
-    assert.end();
 });
 
-test('rules', (assert) => {
+test('rules', () => {
     assert.deepEqual(cloudfriend.contains(['a', 'b'], 'a'), { 'Fn::Contains': [['a', 'b'], 'a'] });
     assert.deepEqual(cloudfriend.eachMemberEquals(['a', 'a'], 'a'), { 'Fn::EachMemberEquals': [['a', 'a'], 'a'] });
     assert.deepEqual(cloudfriend.eachMemberIn(['a', 'b'], ['a', 'b', 'c']), { 'Fn::EachMemberIn': [['a', 'b'], ['a', 'b', 'c']] });
     assert.deepEqual(cloudfriend.refAll('a'), { 'Fn::RefAll': 'a' });
     assert.deepEqual(cloudfriend.valueOf('a', 'b'), { 'Fn::ValueOf': ['a', 'b'] });
     assert.deepEqual(cloudfriend.valueOfAll('a', 'b'), { 'Fn::ValueOfAll': ['a', 'b'] });
-    assert.end();
 });
 
-test('pseudo', (assert) => {
+test('pseudo', () => {
     assert.deepEqual(cloudfriend.accountId, { Ref: 'AWS::AccountId' }, 'account');
     assert.deepEqual(cloudfriend.notificationArns, { Ref: 'AWS::NotificationARNs' }, 'notificationArns');
     assert.deepEqual(cloudfriend.noValue, { Ref: 'AWS::NoValue' }, 'noValue');
@@ -72,10 +70,9 @@ test('pseudo', (assert) => {
     assert.deepEqual(cloudfriend.stackName, { Ref: 'AWS::StackName' }, 'stack');
     assert.deepEqual(cloudfriend.partition, { Ref: 'AWS::Partition' }, 'stack');
     assert.deepEqual(cloudfriend.urlSuffix, { Ref: 'AWS::URLSuffix' }, 'stack');
-    assert.end();
 });
 
-test('merge', (assert) => {
+test('merge', () => {
     const a = {
         Metadata: { Instances: { Description: 'Information about the instances' } },
         Parameters: { InstanceCount: { Type: 'Number' } },
@@ -236,6 +233,4 @@ test('merge', (assert) => {
         b = { Mappings: { Instance: { 'us-east-1': { AMI: 'ami-123456' } } } };
         cloudfriend.merge(a, b);
     }, 'does not throw on cross-property name overlap');
-
-    assert.end();
 });

@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.5.0
+
+- :rocket: Migrate to NodeJS `node:test` runner
+
 ## v7.4.0
 
 - Bump release

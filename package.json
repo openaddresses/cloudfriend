@@ -9,8 +9,8 @@
     },
     "scripts": {
         "lint": "eslint index.js test lib",
-        "test": "nyc tape test/*.test.js | tap-spec",
-        "coverage": "nyc --reporter html tape test/*.test.js && opener coverage/index.html"
+        "test": "node --test test/*.test.js",
+        "coverage": "node --test --experimental-test-coverage test/*.test.js"
     },
     "repository": {
         "type": "git",
@@ -26,14 +26,9 @@
         "url": "https://github.com/openaddresses/cloudfriend/issues"
     },
     "homepage": "https://github.com/openaddresses/cloudfriend#readme",
-    "dependencies": {
-        "tape": "^5.8.1"
-    },
+    "dependencies": {},
     "devDependencies": {
         "eslint": "^9.0.0",
-        "eslint-plugin-n": "^17.10.2",
-        "nyc": "^17.0.0",
-        "opener": "^1.4.1",
-        "tap-spec": "^5.0.0"
+        "eslint-plugin-n": "^17.10.2"
     }
 }
