@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.6.0
+
+- :rocket: Update Core Deps
+
 ## v7.5.1
 
 - :bug: Fix lint errors
