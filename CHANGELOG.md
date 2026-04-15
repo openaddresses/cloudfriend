@@ -1,5 +1,9 @@
 # Changelog
 
+## v7.7.0
+
+- :rocket: Move ESLint to devDeps
+
 ## v7.6.0
 
 - :rocket: Update Core Deps
